@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 30-Day Python Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        .day-card-body {
+            display: none;
+        }
+        .day-card-body.expanded {
+            display: block;
+        }
+        .tab-button.active {
+            border-bottom-color: #a16207; 
+            color: #a16207;
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals (Tailwind Stone) with Warm Accents (Tailwind Yellow/Amber) -->
+    <!-- Application Structure Plan: The SPA is structured as a tabbed interface, which is a classic and highly intuitive SPA pattern. The navigation bar allows users to select "Week 1", "Week 2", "Week 3", "Week 4", or "Overview & Next Steps". This segmentation immediately breaks the dense 30-day plan into manageable, thematic sections, directly addressing the "easily consumable" goal. Each "Week" tab displays a grid of 7 "day cards". Each card is interactive, acting as an accordion: clicking its header toggles the visibility of the detailed "concepts" and "task" for that day. This "summary + details on demand" interaction prevents overwhelming the user and is excellent for mobile. The "Overview" tab provides high-level synthesis: a Chart.js doughnut chart visualizes the distribution of topics (Fundamentals, OOP, etc.), and the "What's Next?" section is presented as a series of clear, visual cards. This structure was chosen over a single scrolling page to promote focused exploration (one week at a time) and to add analytical value (the chart). -->
+    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Presentation Method -> Interaction -> Justification -> Library/Method. 1. Daily Plan (Days 1-30): Goal: Inform & Organize. Method: Interactive Accordion Cards (HTML/CSS/JS). Interaction: Click to expand/collapse card body. Justification: Prevents information overload, mobile-friendly, allows users to scan the week's topics. 2. Topic Distribution (Analysis of all 30 days): Goal: Synthesize & Analyze. Method: Doughnut Chart (Chart.js/Canvas). Interaction: Hover for tooltips. Justification: Provides a high-level summary of the plan's focus (e.g., "X% is Fundamentals"), adding analytical value not present in the original report. 3. Specialization Paths: Goal: Inform (Future Steps). Method: Static Visual Cards (HTML/CSS). Interaction: None (static content). Justification: More visually engaging and separated than the original report's bullet list. - CONFIRMING NO SVG/Mermaid, supporting the tabbed structure. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-stone-100 text-stone-800 font-sans leading-relaxed">
+
+    <div class="container mx-auto max-w-7xl p-4 md:p-8">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-bold text-yellow-700">🐍 The 30-Day Python Learning Path</h1>
+            <p class="text-lg md:text-xl text-stone-600 mt-4 max-w-3xl mx-auto">An interactive roadmap to take you from absolute beginner to specialist foundations. Click the tabs to explore each week and click on any day to see its details.</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center border-b-2 border-stone-300 mb-8">
+            <button class="tab-button text-lg font-medium py-4 px-6 border-b-4 border-transparent hover:text-yellow-700 transition-colors duration-200 active" data-target="#week-1-content">Week 1</button>
+            <button class="tab-button text-lg font-medium py-4 px-6 border-b-4 border-transparent hover:text-yellow-700 transition-colors duration-200" data-target="#week-2-content">Week 2</button>
+            <button class="tab-button text-lg font-medium py-4 px-6 border-b-4 border-transparent hover:text-yellow-700 transition-colors duration-200" data-target="#week-3-content">Week 3</button>
+            <button class="tab-button text-lg font-medium py-4 px-6 border-b-4 border-transparent hover:text-yellow-700 transition-colors duration-200" data-target="#week-4-content">Week 4</button>
+            <button class="tab-button text-lg font-medium py-4 px-6 border-b-4 border-transparent hover:text-yellow-700 transition-colors duration-200" data-target="#overview-content">Overview & Next Steps</button>
+        </nav>
+
+        <main>
+            <div id="week-1-content" class="tab-panel active">
+                <h2 class="text-2xl font-bold text-stone-700 mb-6">Week 1: Python Fundamentals (The Essentials)</h2>
+                <p class="text-lg text-stone-600 mb-6">This first week is all about setting up your environment, understanding Python’s basic syntax, and establishing a **foundation for problem-solving**. You’ll learn how to store information using variables and data structures, and how to control the flow of your program using conditionals and loops. By the end of this week, you'll be able to write small, self-contained, functional programs.</p>
+                <div id="week-1-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <div id="week-2-content" class="tab-panel">
+                <h2 class="text-2xl font-bold text-stone-700 mb-6">Week 2: Intermediate Concepts (Structure & Data Management)</h2>
+                <p class="text-lg text-stone-600 mb-6">Now that you have the basic syntax down, Week 2 shifts focus to **code reusability and managing larger data sets**. You'll master dictionaries for storing complex relationships and the crucial skill of writing **functions** to organize and modularize your code. You'll also learn the fundamental skill of **File Input/Output (I/O)**, which allows your programs to interact with the external world and save persistent data.</p>
+                <div id="week-2-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <div id="week-3-content" class="tab-panel">
+                <h2 class="text-2xl font-bold text-stone-700 mb-6">Week 3: Advanced Fundamentals (Efficiency & Professional Control)</h2>
+                <p class="text-lg text-stone-600 mb-6">This week, you'll level up to writing more efficient and **"Pythonic" code**, making you faster and your code cleaner. You’ll cover crucial topics like **Error Handling** (making your programs robust against failure) and **Modules** (importing tools written by others). Finally, you’ll learn specific, real-world utility tasks, such as working with dates and powerful text pattern matching using Regular Expressions.</p>
+                <div id="week-3-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <div id="week-4-content" class="tab-panel">
+                <h2 class="text-2xl font-bold text-stone-700 mb-6">Week 4: Object-Oriented & Specialist Path (Real-World Architectures)</h2>
+                <p class="text-lg text-stone-600 mb-6">The final week introduces you to **Object-Oriented Programming (OOP)**, the professional paradigm for building scalable, complex applications. You'll shift your thinking from a sequence of steps to designing **system architectures**. You'll also integrate core third-party tools like the `requests` library for **APIs** and the **Pandas** library for data analysis, preparing you directly for your chosen specialist track.</p>
+                <div id="week-4-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+
+            <div id="overview-content" class="tab-panel">
+                <h2 class="text-2xl font-bold text-stone-700 mb-6">Plan Overview & What's Next?</h2>
+                <p class="text-lg text-stone-600 mb-8">This 30-day plan is designed to give you a comprehensive foundation. The chart below shows how your time is distributed across different topics, and the cards outline potential paths you can take after Day 30.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white p-6 rounded-lg shadow-xl">
+                        <h3 class="text-xl font-bold text-stone-700 text-center mb-4">30-Day Topic Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="topicChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-xl">
+                        <h3 class="text-xl font-bold text-stone-700 text-center mb-4">Your Specialist Path</h3>
+                        <p class="text-stone-600 text-center mb-6">After completing this journey, you are ready to specialize!</p>
+                        <div class="space-y-4">
+                            <div class="bg-stone-50 p-4 rounded-lg shadow-inner">
+                                <h4 class="text-lg font-semibold text-yellow-700">🕸️ Web Development</h4>
+                                <p class="text-stone-600">Focus on **Django** (for large projects) or **Flask** (for smaller microservices) for building dynamic web applications and backend systems.</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg shadow-inner">
+                                <h4 class="text-lg font-semibold text-yellow-700">📊 Data Science</h4>
+                                <p class="text-stone-600">Dive deeper into **Pandas** for transformation, **NumPy** for numerical computation, and **Matplotlib/Seaborn** for advanced visualization.</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg shadow-inner">
+                                <h4 class="text-lg font-semibold text-yellow-700">🤖 Automation</h4>
+                                <p class="text-stone-600">Learn libraries like **Selenium** for browser control and **Beautiful Soup** for web scraping and automating tasks that save time and effort.</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg shadow-inner">
+                                <h4 class="text-lg font-semibold text-yellow-700">🧠 AI/ML</h4>
+                                <p class="text-stone-600">Start exploring dedicated frameworks like **TensorFlow, PyTorch,** or **scikit-learn** to build models that predict, classify, and learn from data.</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg shadow-inner">
+                                <h4 class="text-lg font-semibold text-yellow-700">☁️ Backend APIs</h4>
+                                <p class="text-stone-600">Master **FastAPI** for building high-performance, modern REST APIs, focusing on request validation and database integration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const learningPathData = {
+            week1: [
+                { day: 1, title: "Setup & First Steps", concepts: "Install Python and VS Code. Learn **`print()`** (output), **variables** (storage), and core data types (`int`, `float`, `string`).", task: "Write a program that asks for your <strong>name and age</strong>, then prints a greeting using those variables." },
+                { day: 2, title: "Basic Operations", concepts: "Master arithmetic operators (`+`, `-`, `*`, `/`, `%`), string concatenation, and getting user input with **`input()`**.", task: "Build a <strong>simple calculator</strong> that performs addition, subtraction, multiplication, and division on two numbers provided by the user." },
+                { day: 3, title: "Conditionals", concepts: "Use **`if`, `elif`, `else`** statements to execute code based on conditions, and understand comparison operators (`==`, `>`).", task: "Create a program that checks if a user-entered number is <strong>positive, negative, or zero</strong>." },
+                { day: 4, title: "Loops - Part 1", concepts: "The **`while` loop** for repeated execution, and how to use **`break`** (exit loop) and **`continue`** (skip iteration) for flow control.", task: "Create a <strong>number guessing game</strong> where the computer picks a random number (1-100) and the user guesses until correct." },
+                { day: 5, title: "Loops - Part 2", concepts: "The **`for` loop** for iterating over sequences, and using the **`range()`** function to generate number sequences.", task: "Print the **multiplication tables** from 1 through 10 using nested `for` loops." },
+                { day: 6, title: "Lists & Tuples", concepts: "**Lists** (ordered, mutable sequences) and **Tuples** (ordered, immutable). Learn indexing, slicing, and essential list manipulation methods (`append`, `pop`).", task: "Create a command-line **to-do list program** that allows the user to add, remove, and view tasks saved in a list." },
+                { day: 7, title: "Review Day", concepts: "Mini Project: Combining data types, conditional logic, and user input.", task: "Build a **simple quiz game** with 5 questions, checking user answers against stored correct answers and displaying a final score." }
+            ],
+            week2: [
+                { day: 8, title: "Dictionaries", concepts: "Key-value pairs for non-sequential data storage, essential dictionary methods (`keys`, `values`, `items`), and iterating through dictionaries.", task: "Create a digital **contact book** program that stores multiple contacts, each containing a name (key), phone, and email (values)." },
+                { day: 9, title: "Functions - Part 1", concepts: "Defining functions with the **`def`** keyword, passing **parameters**, and returning values with **`return`**.", task: "Create functions to handle **temperature conversion** (Celsius to Fahrenheit, and vice versa) to demonstrate modularity." },
+                { day: 10, title: "Functions - Part 2", concepts: "Using **default parameters** to make functions flexible, and **`*args` / `**kwargs`** to handle a variable number of positional and keyword arguments.", task: "Build a function that calculates the area of different shapes (circle, rectangle, triangle) based on the specific arguments provided." },
+                { day: 11, title: "String Manipulation", concepts: "Advanced built-in string methods (`split`, `strip`, `replace`), powerful **f-strings** for efficient formatting, and text indexing.", task: "Create a simple **text analyzer** that takes a sentence and counts the total words, characters, and the number of vowels." },
+                { day: 12, title: "File Handling - Read", concepts: "Reading files using the **`open()`** and **`read()`** functions, and the safe, automatic resource management of the **`with` statement**.", task: "Read a sample text file (a short story or poem) and **count how many times each unique word appears**." },
+                { day: 13, title: "File Handling - Write", concepts: "Writing to files using the write mode (`'w'`) and the **append mode (`'a'`)** to add content without erasing existing data.", task: "Create a basic console **journal app** that prompts the user for a new entry and saves it with a timestamp to a dedicated file." },
+                { day: 14, title: "Review Day", concepts: "Mini Project: Combining data structures, functions, and file persistence.", task: "Build a **student grade manager** where you can add student names and their scores, calculate class averages, and save the data to a file." }
+            ],
+            week3: [
+                { day: 15, title: "List Comprehensions", concepts: "A powerful, Pythonic way to create lists based on existing lists, using a concise single line with optional conditional filtering.", task: "Convert a list of Celsius temperatures to Fahrenheit in a single, elegant **list comprehension**." },
+                { day: 16, title: "Lambda & Map/Filter", concepts: "**Lambda** (small, anonymous functions), **`map()`** (apply a function to every item), and **`filter()`** (select items based on a condition).", task: "Use `filter()` to get even numbers from a list, and then use `map()` with a lambda to square those results." },
+                { day: 17, title: "Error Handling", concepts: "Implementing **`try`/`except`** blocks to gracefully handle runtime errors (like `ValueError` or `ZeroDivisionError`), and using **`finally`** and custom exceptions.", task: "Improve your calculator with **robust error handling** to catch division by zero attempts and non-numeric inputs, printing helpful messages instead." },
+                { day: 18, title: "Modules & Imports", concepts: "How to use the **`import`** statement to access code from other files, and the difference between simple import and **`from...import`**.", task: "Create your own utility module (`utils.py`) with 3-4 reusable functions (e.g., area, prime checker) and import it into a main script to use them." },
+                { day: 19, title: "Working with Datetime", concepts: "Using the **`datetime` module** to create, format, and manipulate dates and times, including calculating time differences.", task: "Create an **age calculator** that takes a user's birthdate and calculates their exact age in years, months, and days." },
+                { day: 20, title: "Regular Expressions", concepts: "The **`re` module** for powerful pattern matching in text, learning basic patterns like character classes (`\\d`, `\\w`) and quantifiers (`+`, `*`).", task: "Build a simple function to validate if a string looks like a standard **email format** or a 10-digit **phone number**." },
+                { day: 21, title: "Review Day", concepts: "Mini Project: Combining data structures, file I/O, and string formatting.", task: "Create an **expense tracker** where you can add categorized expenses, calculate monthly totals, and save/load the transactions to a structured file." }
+            ],
+            week4: [
+                { day: 22, title: "OOP - Classes & Objects", concepts: "Introduction to **Classes** (the blueprint) and **Objects** (the instance). Mastering the mandatory setup method **`__init__`** and the purpose of the **`self`** parameter.", task: "Create a **`BankAccount` class** with attributes for balance and owner, and methods for `deposit` and `withdraw`." },
+                { day: 23, title: "OOP - Inheritance", concepts: "Creating **child classes** that inherit attributes and methods from a **parent class** using the **`super()`** function, and how to override methods.", task: "Create **`SavingsAccount`** and **`CheckingAccount`** classes that inherit from `BankAccount` and add unique functionality (e.g., minimum balance check)." },
+                { day: 24, title: "OOP - Practice", concepts: "Understanding **Encapsulation** and using the **`@property`** decorator to create controlled getter and setter methods.", task: "Build a **Library system** with `Book` and `Member` classes, demonstrating ownership and controlled access to data." },
+                { day: 25, title: "Working with APIs", concepts: "Using the **`requests` library** to send HTTP requests and handle the resulting **JSON data** received from external web services.", task: "<strong>Fetch real-time weather data</strong> for your city from a public API and parse the JSON to display the temperature and conditions." },
+                { day: 26, title: "Data Structures", concepts: "Exploring specialized containers like **`set`** (unique items), **`deque`** (fast appends/pops), and **`defaultdict`** (handling missing keys gracefully) from the `collections` module.", task: "Solve a basic problem that requires finding unique elements in a large list quickly using a **set**." },
+                { day: 27, title: "Introduction to Pandas", concepts: "Getting started with **DataFrames** (like Python spreadsheets) and **Series**, and learning how to efficiently read data from external sources like **CSV files**.", task: "Load a sample dataset (CSV) into a **Pandas DataFrame** and perform basic descriptive analysis (`.head()`, `.info()`, `.describe()`)." },
+                { day: 28, title: "More Pandas", concepts: "Core manipulation techniques: **Filtering** rows by condition, **Grouping** data for aggregation (`groupby`), and **Sorting** dataframes.", task: "Analyze your dataset by **filtering rows** based on conditions (e.g., sales > 1000) and **grouping** data to find average values." },
+                { day: 29, title: "Introduction to Testing", concepts: "Using the standard library **`unittest` module** to write automated **test cases** and use **assertions** to ensure your code works as expected.", task: "Write **unit tests** for the core calculation functions you built on Day 2 to ensure they handle both success and error cases reliably." },
+                { day: 30, title: "Final Capstone", concepts: "Capstone Project: Combining everything you've learned—OOP design, file persistence, error handling, and testing—into one substantial application.", task: "Build a comprehensive **CLI Task Manager** that uses classes to manage tasks, saves data to a file, handles user errors, and includes a small set of tests." }
+            ]
+        };
+
+        const topicChartData = {
+            labels: [
+                'Fundamentals',
+                'Data Structures',
+                'Functions',
+                'File I/O',
+                'OOP',
+                'Advanced Concepts',
+                'Tools & Libraries',
+                'Testing',
+                'Projects/Review'
+            ],
+            datasets: [{
+                label: 'Days per Topic',
+                data: [7, 2, 2, 2, 3, 6, 3, 1, 4], 
+                backgroundColor: [
+                    '#ca8a04',
+                    '#eab308',
+                    '#f59e0b',
+                    '#d97706',
+                    '#b45309',
+                    '#9a3412',
+                    '#7f1d1d',
+                    '#854d0e',
+                    '#a16207'
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initTabs();
+            populateAllWeeks();
+            addCardToggles();
+            initTopicChart();
+        });
+
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabPanels.forEach(panel => panel.classList.remove('active'));
+                    document.querySelector(button.dataset.target).classList.add('active');
+                });
+            });
+        }
+
+        function populateAllWeeks() {
+            Object.keys(learningPathData).forEach((weekKey, index) => {
+                const weekNumber = index + 1;
+                const grid = document.getElementById(`week-${weekNumber}-grid`);
+                if (grid) {
+                    const weekData = learningPathData[weekKey];
+                    let html = '';
+                    weekData.forEach(day => {
+                        html += `
+                            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                                <div class="day-card-header p-4 cursor-pointer bg-stone-50 hover:bg-stone-200 transition-colors duration-200 flex justify-between items-center">
+                                    <div>
+                                        <span class="text-sm font-semibold text-yellow-700">Day ${day.day}</span>
+                                        <h3 class="text-lg font-bold text-stone-800">${day.title}</h3>
+                                    </div>
+                                    <span class="text-2xl text-yellow-700 toggle-icon">+</span>
+                                </div>
+                                <div class="day-card-body p-4 border-t border-stone-200">
+                                    <h4 class="font-semibold text-stone-700 mb-2">Key Concepts:</h4>
+                                    <p class="text-stone-600 mb-4">${day.concepts}</p>
+                                    <h4 class="font-semibold text-stone-700 mb-2">Daily Task / Challenge:</h4>
+                                    <p class="text-stone-600">${day.task}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    grid.innerHTML = html;
+                }
+            });
+        }
+
+        function addCardToggles() {
+            document.body.addEventListener('click', function(event) {
+                const header = event.target.closest('.day-card-header');
+                if (header) {
+                    const body = header.nextElementSibling;
+                    const icon = header.querySelector('.toggle-icon');
+                    
+                    if (body.classList.contains('expanded')) {
+                        body.classList.remove('expanded');
+                        icon.textContent = '+';
+                    } else {
+                        body.classList.add('expanded');
+                        icon.textContent = '−';
+                    }
+                }
+            });
+        }
+
+        function initTopicChart() {
+            const ctx = document.getElementById('topicChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: topicChartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + ' days';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                },
+            });
+        }
+
+    </script>
+</body>
+</html>
